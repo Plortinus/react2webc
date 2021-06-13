@@ -1,41 +1,40 @@
 import React, { useState } from "react";
+import PropTypes from 'prop-types';
 import ReactDOM from "react-dom";
 import reactToWebComponent from "react-to-webcomponent";
+import { Button } from 'antd'
+import 'antd/dist/antd.css'
 
-export default function MyCounter() {
-  const [count, setCount] = useState(0);
+// export default function CosmoButton({type, text}) {
+//   console.log('text: ', text);
+//   console.log('type: ', type);
+//   const [count, setCount] = useState(0);
 
-  const styles = `
-    .my-counter * {
-      font-size: 200%;
-    }
-
-    .my-counter span {
-      width: 4rem;
-      display: inline-block;
-      text-align: center;
-    }
-
-    .my-counter button {
-      width: 64px;
-      height: 64px;
-      border: none;
-      border-radius: 10px;
-      background-color: seagreen;
-      color: white;
-    }`;
-
-  return (
-    <div className="my-counter">
-      <style>{styles}</style>
-      <button onClick={() => setCount(count - 1)}>-</button>
-      <span>{count}</span>
-      <button onClick={() => setCount(count + 1)}>+</button>
-    </div>
-  );
+//   return (
+//     <Button type={type}>
+//       {text}
+//     </Button>
+//   );
+// }
+class CosmoButton extends React.Component {
+  render() {
+    const { type, text } = this.props
+    console.log('text: ', text);
+    console.log('type: ', type);
+    return (
+      <Button type={type}>{text}</Button>
+    );
+  }
 }
 
+CosmoButton.propTypes = {
+  type: PropTypes.string,
+  text: PropTypes.string,
+};
+
+export default CosmoButton
+
 customElements.define(
-  "my-counter",
-  reactToWebComponent(MyCounter, React, ReactDOM)
+  "c-button",
+  reactToWebComponent(CosmoButton, React, ReactDOM)
 );
